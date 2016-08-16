@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Cool Desgin Sheet</title>
+</head>
+
+<body>
+
+<h3>My Cool Desgin Sheet</h3>
+
+<canvas id="canvas" width="450" height="450"></canvas>
+
+<script>
+    var canvas = document.getElementById("canvas");
+    canvas.style.backgroundColor = 'LightCyan';
+
+    var ctx = canvas.getContext("2d");
+
+    //function to draw x grids
+    var drawXTicks = function (color, lineWidth, step)
+    {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = lineWidth;
+        for(var x=0; x<=400; x+=step)
+        {
+            ctx.beginPath();
+            ctx.moveTo(x,0);
+            ctx.lineTo(x,400);
+            ctx.stroke();
+        }
+    }
+
+    //x ticks
+    drawXTicks('silver', 0.5, 10);
+    drawXTicks('gray', 0.5, 50);
+    drawXTicks('black', 1, 100);
+
+/*
+    //x 10-tick lines
+    ctx.strokeStyle = "silver";
+    ctx.lineWidth = 0.5;
+    for(var x=0; x<=400; x+=10)
+    {
+        ctx.beginPath();
+        ctx.moveTo(x,0);
+        ctx.lineTo(x,400);
+        ctx.stroke();
+    }
+
+    //x 50-tick lines
+    ctx.strokeStyle = "gray";
+    ctx.lineWidth = 0.5;
+    for(var x=0; x<=400; x+=50)
+    {
+        ctx.beginPath();
+        ctx.moveTo(x,0);
+        ctx.lineTo(x,400);
+        ctx.stroke();
+    }
+
+    //x 100-tick lines
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    for(var x=0; x<=400; x+=100)
+    {
+        ctx.beginPath();
+        ctx.moveTo(x,0);
+        ctx.lineTo(x,400);
+        ctx.stroke();
+    }
+*/
+
+//function to draw x grids
+var drawYTicks = function (color, lineWidth, step)
+{
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lineWidth;
+    for(var y=0; y<=400; y+=step)
+    {
+        ctx.beginPath();
+        ctx.moveTo(0,y );
+        ctx.lineTo(400, y);
+        ctx.stroke();
+    }
+}
+
+//x ticks
+drawYTicks('silver', 0.5, 10);
+drawYTicks('gray', 0.5, 50);
+drawYTicks('black', 1, 100);
+
+/*
+    //y 10-tick lines
+    ctx.strokeStyle = "silver";
+    ctx.lineWidth = 0.5;
+    for(var y=0; y<=400; y+=10)
+    {
+        ctx.beginPath();
+        ctx.moveTo(0,y);
+        ctx.lineTo(400,y);
+        ctx.stroke();
+    }
+
+    //y 50-tick lines
+    ctx.strokeStyle = "grey";
+    ctx.lineWidth = 0.5;
+    for(var y=0; y<=400; y+=50)
+    {
+        ctx.beginPath();
+        ctx.moveTo(0,y);
+        ctx.lineTo(400,y);
+        ctx.stroke();
+    }
+
+    //y 100-tick lines
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 1;
+    for(var y=0; y<=400; y+=100)
+    {
+        ctx.beginPath();
+        ctx.moveTo(0,y);
+        ctx.lineTo(400,y);
+        ctx.stroke();
+    }
+*/
+
+    //add x labels
+    ctx.font = "20px Arial";
+    ctx.textAlign="left";
+    ctx.textBaseline="top";
+    ctx.fillText("0",0,403);
+    ctx.textAlign="center";
+    ctx.fillText("100",100,403);
+    ctx.fillText("200",200,403);
+    ctx.fillText("300",300,403);
+    ctx.fillText("400",400,403);
+
+    //add y labels
+    ctx.textAlign="left";
+    ctx.textBaseline="top";
+    ctx.fillText("0",403, 0);
+    ctx.textBaseline="middle";
+    ctx.fillText("100",403, 100);
+    ctx.fillText("200",403, 200);
+    ctx.fillText("300",403, 300);
+    ctx.textBaseline="bottom";
+    ctx.fillText("400",403, 400);
+
+</script>
+
+</body>
+</html>

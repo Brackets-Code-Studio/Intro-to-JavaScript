@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas Animation</title>
+    <script type="text/javascript" src="drawBeeLibrary.js"></script>
+</head>
+
+<body>
+    <canvas id="canvas" width="200" height="200"></canvas>
+    <script>
+    var canvas = document.getElementById("canvas");
+    canvas.style.backgroundColor = 'LightCyan';
+    var ctx = canvas.getContext("2d");
+
+    drawCircle(ctx,50,50,25,true);
+    drawBee(ctx,100,100);
+    
+    </script>
+</body>
+</html>

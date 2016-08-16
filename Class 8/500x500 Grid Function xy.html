@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Cool Desgin Sheet</title>
+</head>
+
+<body>
+
+<h3>My Cool Desgin Sheet</h3>
+
+<canvas id="canvas" width="450" height="450"></canvas>
+
+<script>
+    var canvas = document.getElementById("canvas");
+    canvas.style.backgroundColor = 'LightCyan';
+
+    var ctx = canvas.getContext("2d");
+
+    //function to draw grids
+    var drawTicks = function (color, lineWidth, step, isYGrids)
+    {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = lineWidth;
+        for(var i=0; i<=400; i+=step) {
+            ctx.beginPath();
+            if(isYGrids) {
+                ctx.moveTo(0,i );
+                ctx.lineTo(400, i);
+            }
+            else {
+                ctx.moveTo(i,0);
+                ctx.lineTo(i,400);
+            }
+            ctx.stroke();
+        }
+    }
+
+    //x ticks
+    drawTicks('silver', 0.5, 10, false);
+    drawTicks('gray', 0.5, 50, false);
+    drawTicks('black', 1, 100, false);
+
+    //y ticks
+    drawTicks('silver', 0.5, 10, true);
+    drawTicks('gray', 0.5, 50, true);
+    drawTicks('black', 1, 100, true);
+
+    //add x labels
+    ctx.font = "20px Arial";
+    ctx.textAlign="left";
+    ctx.textBaseline="top";
+    ctx.fillText("0",0,403);
+    ctx.textAlign="center";
+    ctx.fillText("100",100,403);
+    ctx.fillText("200",200,403);
+    ctx.fillText("300",300,403);
+    ctx.fillText("400",400,403);
+
+    //add y labels
+    ctx.textAlign="left";
+    ctx.textBaseline="top";
+    ctx.fillText("0",403, 0);
+    ctx.textBaseline="middle";
+    ctx.fillText("100",403, 100);
+    ctx.fillText("200",403, 200);
+    ctx.fillText("300",403, 300);
+    ctx.textBaseline="bottom";
+    ctx.fillText("400",403, 400);
+
+</script>
+
+</body>
+</html>

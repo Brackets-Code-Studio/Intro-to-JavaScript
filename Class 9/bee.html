@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas Animation</title>
+    <script type="text/javascript" src="drawBeeLibrary.js"></script>
+</head>
+
+<body>
+    <canvas id="canvas" width="200" height="200"></canvas>
+
+    <script>
+    var canvas = document.getElementById("canvas");
+    canvas.style.backgroundColor = 'LightCyan';
+    var ctx = canvas.getContext("2d");
+
+    //update the coordinate randomly
+    var update = function (coordinate) {
+      var offset = Math.random() * 4 - 2;
+      coordinate += offset;
+      if (coordinate > 200) {
+        coordinate = 200;
+      }
+      if (coordinate < 0) {
+        coordinate = 0;
+      }
+      return coordinate;
+    };
+
+    //make a jumping bee
+    var x = 100;
+    var y = 100;
+    var drawOneFrame = function ()
+    {
+        ctx.clearRect(0, 0, 200, 200);
+        drawBee(ctx, x, y);
+        x = update(x);
+        y = update(y);
+        ctx.strokeRect(0, 0, 200, 200);
+    }
+
+    //draw every 30 milliseconds
+    setInterval(drawOneFrame, 30);
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas Animation</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="200" height="200"></canvas>
+    <script>
+    var canvas = document.getElementById("canvas");
+    canvas.style.backgroundColor = 'LightCyan';
+    var ctx = canvas.getContext("2d");
+
+    //draw a frame
+    var position = 0;
+    var drawOneFrame = function ()
+    {
+      ctx.clearRect(0, 0, 200, 200);
+      ctx.fillRect(position, 0, 20, 20);
+      position++;
+      if (position > 200)
+      {
+        position = 0;
+      }
+    }
+
+    //play
+    setInterval(drawOneFrame, 30);
+
+    </script>
+</body>
+</html>
