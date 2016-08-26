@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Analog Clock</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script src="analogClock.js"></script>
+    <!--
+    <script src="http://bracketscodestudio.com/school/yuxi/clock/analogClock.js"></script>
+-->
+    <script>
+        var canvas = document.getElementById("canvas");
+        canvas.style.backgroundColor = 'black';
+        var ctx = canvas.getContext("2d");
+        var width = canvas.width;
+        var height = canvas.height;
+
+        //draw a frame
+        var drawOneFrame = function() {
+            ctx.clearRect(0, 0, 400, 450);
+
+            //draw circles
+            drawCircle(ctx, 200, 200, 195, true, "orange", "orange", 1);
+            drawCircle(ctx, 200, 200, 170, true, "black", "black", 1);
+            drawCircle(ctx, 200, 200, 5, true, "orange", "orange", 1);
+
+            //draw labels
+            for (var i = 1; i <= 12; i++) {
+                var xy = clockPolarToXY(182.5, i * 5, 200, 200);
+                ctx.font = "20px Comic Sans MS";
+                ctx.fillStyle = "black";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(i, xy.x, xy.y);
+            }
+
+            //get time details
+            var currentdate = new Date();
+            var hours = currentdate.getHours();
+            var minutes = currentdate.getMinutes();
+            var seconds = currentdate.getSeconds();
+
+            //draw digital clock
+            ctx.font = "10px Comic Sans MS";
+            ctx.fillStyle = "silver";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(currentdate.toLocaleString(), width / 2, 300);
+
+            //draw hour hand
+            var xy = clockPolarToXY(120, (hours + minutes / 60.0) * 5, 200, 200);
+            drawLine(ctx, 200, 200, xy.x, xy.y, "orange", 4);
+
+            //draw minute hand
+            var xy = clockPolarToXY(145, minutes + seconds / 60.0, 200, 200);
+            drawLine(ctx, 200, 200, xy.x, xy.y, "orange", 4);
+
+            //draw second hand
+            var xy = clockPolarToXY(165, seconds, 200, 200);
+            drawLine(ctx, 200, 200, xy.x, xy.y, "red", 2);
+        }
+
+        //animation loop
+        setInterval(drawOneFrame, 100);
+    </script>
+</body>
+
+</html>

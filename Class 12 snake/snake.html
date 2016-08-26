@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snake and Apple</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script src="helper.js"></script>
+    <script src="stage.js"></script>
+    <script src="score.js"></script>
+    <script src="block.js"></script>
+    <script src="snake.js"></script>
+    <script src="apple.js"></script>
+    <script>
+    var canvas = document.getElementById("canvas");
+    canvas.style.backgroundColor = 'LightCyan';
+    var ctx = canvas.getContext("2d");
+    var width = canvas.width;
+    var height = canvas.height;
+    var blockSize = 10;
+    var widthInBlock = width/blockSize;
+    var heightInBlock = height/blockSize;
+
+    //create game elements
+    var stage = new Stage(width, height, blockSize);
+    var score = new Score(0);
+    var apple = new Apple(widthInBlock, heightInBlock);
+    var snake = new Snake(widthInBlock, heightInBlock);
+
+    //game loop
+    var paused = false;
+    var drawOneFrame = function()
+    {
+        ctx.clearRect(0, 0, width, height);
+        stage.draw(ctx);
+        score.draw(ctx);
+        if(paused == false)  {
+            var status = snake.move();
+            if(status=="collided"){
+                gameOver();
+            } else if(status=="eaten"){
+                score.add();
+                apple.move();
+            }
+        }
+        snake.draw(ctx);
+        apple.draw(ctx);
+    }
+    var intervalId = setInterval(drawOneFrame, 100);
+
+    //event handler
+    var directions = {
+      37: "left",
+      38: "up",
+      39: "right",
+      40: "down"
+    };
+    $("body").keydown(function (event) {
+        var newDirection = directions[event.keyCode];
+        if(newDirection!==undefined){
+            snake.setDirection(newDirection);
+            paused = false;
+        }
+        else if(event.keyCode==32) { //space
+            paused = !paused;
+        }
+    });
+
+    </script>
+</body>
+</html>

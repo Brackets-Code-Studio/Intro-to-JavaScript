@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Digital Clock</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script src="http://bracketscodestudio.com/school/yuxi/clock/analogClock.js"></script>
+    <script>
+        var canvas = document.getElementById("canvas");
+        canvas.style.backgroundColor = 'black';
+        var ctx = canvas.getContext("2d");
+        var width = canvas.width;
+        var height = canvas.height;
+
+        //draw a frame
+        var drawOneFrame = function() {
+            ctx.clearRect(0, 0, 400, 400);
+
+            //draw big circle
+            drawCircle(ctx, 200, 200, 195, true, 'orange', 'orange', 0);
+
+            //draw small circle
+            drawCircle(ctx, 200, 200, 175, true, 'black', 'black', 0);
+
+            //draw tiny circle
+            drawCircle(ctx, 200, 200, 5, true, 'orange', 'orange', 0);
+
+            //draw label 1-12
+
+            //draw hour hand
+
+            //draw minute hand
+
+            //draw second hand
+
+
+            //digital clock
+            ctx.font = "15px Comic Sans MS";
+            ctx.fillStyle = "Lime";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(new Date().toLocaleString(), 200, 300);
+        }
+
+        //play
+        setInterval(drawOneFrame, 100);
+    </script>
+</body>
+
+</html>

@@ -15,7 +15,7 @@
 
     //update the coordinate randomly
     var update = function (coordinate) {
-      var offset = Math.random() * 4 - 2;
+      var offset = Math.random() * 20 - 10;
       coordinate += offset;
       if (coordinate > 200) {
         coordinate = 200;
@@ -40,7 +40,7 @@
 
     //draw every 30 milliseconds
     setInterval(drawOneFrame, 30);
-    
+
     </script>
 </body>
 </html>

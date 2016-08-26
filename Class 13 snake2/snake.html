@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snake and Apple</title>
+</head>
+
+<style>
+#canvas-container {
+   width: 100%;
+   text-align:left;
+}
+#newGameButton {
+    position:absolute;
+    top:330px;
+    left:200px;
+    transform: translateX(-50%);
+    zindex:2
+}
+canvas {
+   display: inline;
+}
+</style>
+
+<body>
+    <div id="canvas-container">
+        <canvas id="canvas" width="400" height="400"></canvas>
+    </div>
+    <script src="jquery-2.1.0.js"></script>
+    <script src="helper.js"></script>
+    <script src="stage.js"></script>
+    <script src="score.js"></script>
+    <script src="block.js"></script>
+    <script src="snake.js"></script>
+    <script src="apple.js"></script>
+    <script src="image.js"></script>
+    <script>
+    var canvas = document.getElementById("canvas");
+    canvas.style.backgroundColor = 'LightCyan';
+    var ctx = canvas.getContext("2d");
+    var width = canvas.width;
+    var height = canvas.height;
+    var blockSize = 10;
+    var widthInBlock = width/blockSize;
+    var heightInBlock = height/blockSize;
+
+    //create game elements
+    var stage = new Stage(width, height, blockSize);
+    var score = new Score(0);
+    var apple = new Apple(widthInBlock, heightInBlock);
+    var snake = new Snake(widthInBlock, heightInBlock);
+
+    //load images and draw stage
+    var allImages;
+    preloadimages(['stage.blurred.png', 'snakeandapple200.png', 'apple3d.png']).done(function(images){
+        allImages = images;
+        ctx.clearRect(0, 0, width, height);
+        stage.draw(ctx, true);
+        score.draw(ctx);
+    })
+
+    //add "New Game" button
+    var $newGameButton = $('<input/>').attr({
+        type: 'button',
+        name: 'btn1',
+        value: 'New Game',
+        id: 'newGameButton',
+    });
+    $('body').append($newGameButton);
+
+    //game loop
+    var paused = false;
+    var drawOneFrame = function()
+    {
+        ctx.clearRect(0, 0, width, height);
+        stage.draw(ctx, false);
+        score.draw(ctx);
+        if(paused == false)  {
+            var status = snake.move();
+            if(status=="collided"){
+                gameOver();
+                $("#newGameButton").show();
+            } else if(status=="eaten"){
+                score.add();
+                apple.move();
+            }
+        }
+        snake.draw(ctx);
+        apple.draw(ctx);
+    }
+    var intervalId;
+    var startGame = function(){
+        $("#newGameButton").hide();
+        snake.initialize();
+        score.initialize();
+        apple.initialize();
+        intervalId = setInterval(drawOneFrame, 100);
+    }
+    $(document).on("click", "#newGameButton", function(){
+        startGame();
+    });
+
+    //event handler
+    var directions = {
+      37: "left",
+      38: "up",
+      39: "right",
+      40: "down"
+    };
+    $("body").keydown(function (event) {
+        var newDirection = directions[event.keyCode];
+        if(newDirection!==undefined){
+            snake.setDirection(newDirection);
+            paused = false;
+        }
+        else if(event.keyCode==32) { //space
+            paused = !paused;
+        }
+    });
+
+    </script>
+</body>
+</html>

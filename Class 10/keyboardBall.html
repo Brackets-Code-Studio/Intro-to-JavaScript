@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Keyboard input</title>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script src="ball.js"></script>
+    <script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var width = canvas.width;
+    var height = canvas.height;
+
+    // Create the ball object
+    var ball = new Ball(width / 2, height / 2);
+
+    // An object to convert keycodes into action names
+    var keyActions = {
+      32: "stop",
+      37: "left",
+      38: "up",
+      39: "right",
+      40: "down"
+    };
+
+    // The keydown handler that will be called for every keypress
+    $("body").keydown(function (event) {
+      var direction = keyActions[event.keyCode];
+      ball.setDirection(direction);
+    });
+
+    // The animation function, called every 30 ms
+    setInterval(function () {
+      ctx.clearRect(0, 0, width, height);
+
+      ball.draw(ctx);
+      ball.move(width, height);
+
+      ctx.strokeRect(0, 0, width, height);
+    }, 30);
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Digital Clock</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="200" height="40"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        canvas.style.backgroundColor = 'black';
+        var ctx = canvas.getContext("2d");
+        var width = canvas.width;
+        var height = canvas.height;
+
+        //draw a frame
+        var drawOneFrame = function() {
+            ctx.clearRect(0, 0, 200, 40);
+
+            ctx.font = "15px Comic Sans MS";
+            ctx.fillStyle = "Lime";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(new Date().toLocaleString(), width / 2, height / 2);
+        }
+
+        //play
+        setInterval(drawOneFrame, 100);
+    </script>
+</body>
+
+</html>

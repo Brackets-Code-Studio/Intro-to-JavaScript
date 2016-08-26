@@ -6,15 +6,31 @@
 </head>
 
 <body>
+    </p>
+        <button onclick="drawManyBees()">Draw 100 Bees</button>
+    </p>
     <canvas id="canvas" width="200" height="200"></canvas>
     <script>
     var canvas = document.getElementById("canvas");
     canvas.style.backgroundColor = 'LightCyan';
     var ctx = canvas.getContext("2d");
 
+    //call functions in an external file
     drawCircle(ctx,50,50,25,true);
     drawBee(ctx,100,100);
-    
+
+    //
+    var drawManyBees = function()
+    {
+        ctx.clearRect(0, 0, 200, 200);
+        for(var i=0;i<100;i++)
+        {
+           var x = Math.floor(Math.random()*200);
+           var y = Math.floor(Math.random()*200);
+           drawBee(ctx,x,y);
+        }
+    }
+
     </script>
 </body>
 </html>
